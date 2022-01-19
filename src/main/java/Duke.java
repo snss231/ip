@@ -88,6 +88,24 @@ public class Duke {
                     addEvent(description, time);
                     break;
                 }
+                case "delete": {
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: delete [taskNumber]");
+                        break;
+                    }
+
+                    int index = Integer.parseInt(input[1]) - 1;
+                    if (index >= tasks.size() || index < 0) {
+                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                        break;
+                    }
+
+                    Task deletedTask = tasks.remove(index);
+                    System.out.println("Noted. I've removed this task:\n\t" +
+                            deletedTask +
+                            "\nNow you have " + tasks.size() + " tasks in the list.");
+                    break;
+                }
                 default:
                     System.out.println("Unknown command");
                     break;
