@@ -22,31 +22,74 @@ public class Duke {
                 case "list":
                     list();
                     break;
-                case "mark":
-                    mark(Integer.parseInt(input[1]) - 1);
+                case "mark": {
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
+                        break;
+                    }
+                    int index = Integer.parseInt(input[1]) - 1;
+                    if (index >= tasks.size() || index < 0) {
+                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                        break;
+                    }
+                    mark(index);
                     break;
-                case "unmark":
+                }
+                case "unmark": {
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: unmark [taskNumber]");
+                        break;
+                    }
+
+                    int index = Integer.parseInt(input[1]) - 1;
+                    if (index >= tasks.size() || index < 0) {
+                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                        break;
+                    }
+
                     unmark(Integer.parseInt(input[1]) - 1);
                     break;
+                }
                 case "todo":
-                    String todo = rawInput.split(" ", 2)[1];
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: todo [description]");
+                        break;
+                    }
+                    String todo = input[1];
                     addTodo(todo);
                     break;
                 case "deadline": {
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
+                        break;
+                    }
                     String[] parsedDeadline = input[1].split(" /by ");
+                    if (parsedDeadline.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
+                        break;
+                    }
                     String description = parsedDeadline[0];
                     String deadline = parsedDeadline[1];
                     addDeadline(description, deadline);
                     break;
                 }
                 case "event": {
+                    if (input.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: event [description] /at [time]");
+                        break;
+                    }
                     String[] parsedEvent = input[1].split(" /at ");
+                    if (parsedEvent.length == 1) {
+                        System.out.println("Invalid parameter(s). Usage: event [description] /by [time]");
+                        break;
+                    }
                     String description = parsedEvent[0];
                     String time = parsedEvent[1];
                     addEvent(description, time);
                     break;
                 }
                 default:
+                    System.out.println("Unknown command");
                     break;
             }
         }
