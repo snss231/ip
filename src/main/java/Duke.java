@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    static ArrayList<String> items = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -12,7 +12,9 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
 
         loop: while (true) {
-            String command = sc.nextLine();
+            String rawInput = sc.nextLine();
+            String[] input = rawInput.split(" ");
+            String command = input[0];
             switch(command) {
                 case "bye":
                     sayBye();
@@ -20,11 +22,29 @@ public class Duke {
                 case "list":
                     listItems();
                     break;
+                case "mark":
+                    mark(Integer.parseInt(input[1]) - 1);
+                    break;
+                case "unmark":
+                    unmark(Integer.parseInt(input[1]) - 1);
+                    break;
                 default:
-                    addItem(command);
+                    addTask(rawInput);
                     break;
             }
         }
+    }
+
+    static void mark(int index) {
+        Task task = tasks.get(index);
+        task.mark();
+        System.out.println("Nice! I've marked this task as done:\n\t" + task);
+    }
+
+    static void unmark(int index) {
+        Task task = tasks.get(index);
+        task.unmark();
+        System.out.println("Ok, I've marked this task as not done yet:\n\t" + task);
     }
 
     static void greet() {
@@ -35,15 +55,16 @@ public class Duke {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    static void addItem(String command) {
-        items.add(command);
-        System.out.println("added: " + command);
+    static void addTask(String description) {
+        Task newTask = new Task(description);
+        tasks.add(newTask);
+        System.out.println("added: " + description);
     }
 
     static void listItems() {
-        for (int i = 0; i < items.size(); i++) {
-            System.out.println((i + 1) + ". " + items.get(i));
+        System.out.println("Here are the tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println("\t" + (i + 1) + ". " + tasks.get(i).toString());
         }
     }
-
 }
