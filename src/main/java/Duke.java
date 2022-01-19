@@ -1,6 +1,17 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+enum Command {
+    LIST,
+    MARK,
+    UNMARK,
+    TODO,
+    DEADLINE,
+    EVENT,
+    DELETE,
+    BYE
+}
+
 public class Duke {
 
     static ArrayList<Task> tasks = new ArrayList<>();
@@ -14,15 +25,13 @@ public class Duke {
         loop: while (true) {
             String rawInput = sc.nextLine();
             String[] input = rawInput.split(" ", 2);
-            String command = input[0];
+            Command command = Command.valueOf(input[0].toUpperCase());
+
             switch(command) {
-                case "bye":
-                    sayBye();
-                    break loop;
-                case "list":
+                case LIST:
                     list();
                     break;
-                case "mark": {
+                case MARK: {
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
                         break;
@@ -35,7 +44,7 @@ public class Duke {
                     mark(index);
                     break;
                 }
-                case "unmark": {
+                case UNMARK: {
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: unmark [taskNumber]");
                         break;
@@ -50,7 +59,7 @@ public class Duke {
                     unmark(Integer.parseInt(input[1]) - 1);
                     break;
                 }
-                case "todo":
+                case TODO:
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: todo [description]");
                         break;
@@ -58,7 +67,7 @@ public class Duke {
                     String todo = input[1];
                     addTodo(todo);
                     break;
-                case "deadline": {
+                case DEADLINE: {
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
                         break;
@@ -73,7 +82,7 @@ public class Duke {
                     addDeadline(description, deadline);
                     break;
                 }
-                case "event": {
+                case EVENT: {
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: event [description] /at [time]");
                         break;
@@ -88,7 +97,7 @@ public class Duke {
                     addEvent(description, time);
                     break;
                 }
-                case "delete": {
+                case DELETE: {
                     if (input.length == 1) {
                         System.out.println("Invalid parameter(s). Usage: delete [taskNumber]");
                         break;
@@ -106,6 +115,9 @@ public class Duke {
                             "\nNow you have " + tasks.size() + " tasks in the list.");
                     break;
                 }
+                case BYE:
+                    sayBye();
+                    break loop;
                 default:
                     System.out.println("Unknown command");
                     break;
