@@ -28,99 +28,99 @@ public class Duke {
             Command command = Command.valueOf(input[0].toUpperCase());
 
             switch(command) {
-                case LIST:
-                    list();
-                    break;
-                case MARK: {
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
-                        break;
-                    }
-                    int index = Integer.parseInt(input[1]) - 1;
-                    if (index >= tasks.size() || index < 0) {
-                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                        break;
-                    }
-                    mark(index);
+            case LIST:
+                list();
+                break;
+            case MARK: {
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
                     break;
                 }
-                case UNMARK: {
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: unmark [taskNumber]");
-                        break;
-                    }
+                int index = Integer.parseInt(input[1]) - 1;
+                if (index >= tasks.size() || index < 0) {
+                    System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                    break;
+                }
+                mark(index);
+                break;
+            }
+            case UNMARK: {
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: unmark [taskNumber]");
+                    break;
+                }
 
-                    int index = Integer.parseInt(input[1]) - 1;
-                    if (index >= tasks.size() || index < 0) {
-                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                        break;
-                    }
+                int index = Integer.parseInt(input[1]) - 1;
+                if (index >= tasks.size() || index < 0) {
+                    System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                    break;
+                }
 
-                    unmark(Integer.parseInt(input[1]) - 1);
+                unmark(Integer.parseInt(input[1]) - 1);
+                break;
+            }
+            case TODO:
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: todo [description]");
                     break;
                 }
-                case TODO:
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: todo [description]");
-                        break;
-                    }
-                    String todo = input[1];
-                    addTodo(todo);
-                    break;
-                case DEADLINE: {
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
-                        break;
-                    }
-                    String[] parsedDeadline = input[1].split(" /by ");
-                    if (parsedDeadline.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
-                        break;
-                    }
-                    String description = parsedDeadline[0];
-                    String deadline = parsedDeadline[1];
-                    addDeadline(description, deadline);
+                String todo = input[1];
+                addTodo(todo);
+                break;
+            case DEADLINE: {
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
                     break;
                 }
-                case EVENT: {
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: event [description] /at [time]");
-                        break;
-                    }
-                    String[] parsedEvent = input[1].split(" /at ");
-                    if (parsedEvent.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: event [description] /by [time]");
-                        break;
-                    }
-                    String description = parsedEvent[0];
-                    String time = parsedEvent[1];
-                    addEvent(description, time);
+                String[] parsedDeadline = input[1].split(" /by ");
+                if (parsedDeadline.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: deadline [description] /by [due date/time]");
                     break;
                 }
-                case DELETE: {
-                    if (input.length == 1) {
-                        System.out.println("Invalid parameter(s). Usage: delete [taskNumber]");
-                        break;
-                    }
+                String description = parsedDeadline[0];
+                String deadline = parsedDeadline[1];
+                addDeadline(description, deadline);
+                break;
+            }
+            case EVENT: {
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: event [description] /at [time]");
+                    break;
+                }
+                String[] parsedEvent = input[1].split(" /at ");
+                if (parsedEvent.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: event [description] /by [time]");
+                    break;
+                }
+                String description = parsedEvent[0];
+                String time = parsedEvent[1];
+                addEvent(description, time);
+                break;
+            }
+            case DELETE: {
+                if (input.length == 1) {
+                    System.out.println("Invalid parameter(s). Usage: delete [taskNumber]");
+                    break;
+                }
 
-                    int index = Integer.parseInt(input[1]) - 1;
-                    if (index >= tasks.size() || index < 0) {
-                        System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                        break;
-                    }
-
-                    Task deletedTask = tasks.remove(index);
-                    System.out.println("Noted. I've removed this task:\n\t" +
-                            deletedTask +
-                            "\nNow you have " + tasks.size() + " tasks in the list.");
+                int index = Integer.parseInt(input[1]) - 1;
+                if (index >= tasks.size() || index < 0) {
+                    System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
                     break;
                 }
-                case BYE:
-                    sayBye();
-                    break loop;
-                default:
-                    System.out.println("Unknown command");
-                    break;
+
+                Task deletedTask = tasks.remove(index);
+                System.out.println("Noted. I've removed this task:\n\t" +
+                        deletedTask +
+                        "\nNow you have " + tasks.size() + " tasks in the list.");
+                break;
+            }
+            case BYE:
+                sayBye();
+                break loop;
+            default:
+                System.out.println("Unknown command");
+                break;
             }
         }
     }
