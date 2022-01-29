@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 
 import java.io.Serializable;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +17,7 @@ public class TaskList implements Serializable {
         this.tasks = new ArrayList<>();
     }
     public TaskList(TaskList tasks) {
-        this.tasks = tasks.tasks;
+        this.tasks = new ArrayList<>(tasks.tasks);
     }
 
     public Task mark(int index) {
@@ -61,5 +62,11 @@ public class TaskList implements Serializable {
 
     public boolean isEmpty() {
         return this.tasks.size() == 0;
+    }
+
+    public TaskList findTasks(String keyword) {
+        TaskList tl = new TaskList(this);
+        tl.tasks.removeIf(task -> !task.descriptionContains(keyword));
+        return tl;
     }
 }
