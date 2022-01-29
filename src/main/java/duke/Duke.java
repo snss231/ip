@@ -2,12 +2,18 @@ package duke;
 
 import duke.command.Command;
 
+/**
+ * Main driver class for task organisation bot Duke.
+ */
 public class Duke {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Duke.
+     */
     public Duke() {
         ui = new Ui();
         storage = new Storage();
@@ -19,6 +25,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Listen for user input and respond until "bye" command is issued.
+     */
     public void run() {
         this.ui.greet();
         boolean isExit = false;

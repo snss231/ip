@@ -5,8 +5,18 @@ import duke.command.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Class that parses user input and returns the corresponding command.
+ */
 public class Parser {
 
+    /**
+     * Main method that takes in raw user input and returns the corresponding command.
+     *
+     * @param fullCommand The raw string input by the user.
+     * @return The command corresponding to the user's input.
+     * @throws DukeException If user's input is invalid (does not correspond to any command or invalid parameters).
+     */
     public static Command parse(String fullCommand) throws DukeException {
         String[] input = fullCommand.split(" ", 2); //return [commandWord, restOfCommand]
         String commandWord = input[0];

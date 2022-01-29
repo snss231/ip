@@ -4,10 +4,18 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Responsible for writing and loading the list of tasks to and from the user's memory.
+ */
 public class Storage {
 
     static final String PROJECT_ROOT = System.getProperty("user.dir");
 
+    /**
+     * Writes the list of tasks to {PROJECT_ROOT}/data/duke.txt
+     *
+     * @param tasks The list of tasks to be written.
+     */
     public void save(TaskList tasks) {
         try {
             String path  = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
@@ -19,6 +27,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the list of tasks from {{PROJECT_ROOT}/data/duke.txt}
+     *
+     * @return The saved list of tasks.
+     */
     public TaskList load() {
         Path dataFolder = Path.of(PROJECT_ROOT, "data");
         if (!Files.exists(dataFolder)) { //initialize data directory if not present

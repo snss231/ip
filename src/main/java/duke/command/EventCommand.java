@@ -38,7 +38,7 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(description, at);
-        tasks.add(event);
+        tasks.addTask(event);
         storage.save(tasks);
         ui.showAddTask(event, tasks.count());
     }

@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         Todo todo = new Todo(description);
-        tasks.add(todo);
+        tasks.addTask(todo);
         storage.save(tasks);
         ui.showAddTask(todo, tasks.count());
     }
