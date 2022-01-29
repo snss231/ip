@@ -35,14 +35,14 @@ public class TaskList implements Serializable {
         tasks.add(task);
     }
 
-    public int count() {
-        return this.tasks.size();
+    public Task deleteTask(int index) {
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        return task;
     }
 
-    public Task remove(int index) {
-        Task task = this.tasks.get(index);
-        this.tasks.remove(index);
-        return task;
+    public int count() {
+        return this.tasks.size();
     }
 
     @Override
@@ -51,12 +51,6 @@ public class TaskList implements Serializable {
                 .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
                 .collect(Collectors.toList());
         return String.join("\n", taskStrings);
-    }
-
-    public Task deleteTask(int index) {
-        Task task = tasks.get(index);
-        tasks.remove(index);
-        return task;
     }
 
     public boolean isEmpty() {
