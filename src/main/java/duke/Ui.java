@@ -92,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Notifies the usre upon task successfully marked.
+     * Notifies the user upon task successfully marked.
      *
      * @param task The marked task.
      */
