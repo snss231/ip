@@ -64,7 +64,6 @@ public class TaskList implements Serializable {
         tasks.add(task);
     }
 
-
     /**
      * Deletes a task from the list of tasks based on the index.
      *

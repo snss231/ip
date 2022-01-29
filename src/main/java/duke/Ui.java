@@ -83,7 +83,8 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public void showTasks(TaskList tasks) {
-        System.out.println(tasks.isEmpty()
+        System.out.println(
+                tasks.isEmpty()
                 ? "There are no tasks yet, bro."
                 : "Here are your tasks bro:\n" + tasks);
     }
