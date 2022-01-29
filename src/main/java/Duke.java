@@ -18,18 +18,24 @@ public class Duke {
     static final String PROJECT_ROOT = System.getProperty("user.dir");
     static ArrayList<Task> tasks;
 
-    public static void main(String[] args) {
+    static void loadTasks() {
         try {
-            String path  = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
+            String path = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
             FileInputStream fis = new FileInputStream(path);
             ObjectInputStream ois = new ObjectInputStream(fis);
             tasks = (ArrayList<Task>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
+            String path = Path.of(PROJECT_ROOT, "data").toString();
+            File file = new File(path);
+            file.mkdir();
             tasks = new ArrayList<>();
         }
+    }
 
+    public static void main(String[] args) {
         greet();
+
+        loadTasks();
 
         Scanner sc = new Scanner(System.in);
 
