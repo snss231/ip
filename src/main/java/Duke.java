@@ -1,5 +1,7 @@
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.nio.file.Path;
 
 enum Command {
     LIST,
@@ -13,50 +15,67 @@ enum Command {
 }
 
 public class Duke {
+    static final String PROJECT_ROOT = System.getProperty("user.dir");
+    static ArrayList<Task> tasks;
 
-    static ArrayList<Task> tasks = new ArrayList<>();
+    static void loadTasks() {
+        try {
+            String path = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
+            FileInputStream fis = new FileInputStream(path);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            tasks = (ArrayList<Task>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            String path = Path.of(PROJECT_ROOT, "data").toString();
+            File file = new File(path);
+            file.mkdir();
+            tasks = new ArrayList<>();
+        }
+    }
 
     public static void main(String[] args) {
-
         greet();
+
+        loadTasks();
 
         Scanner sc = new Scanner(System.in);
 
         loop: while (true) {
             String rawInput = sc.nextLine();
             String[] input = rawInput.split(" ", 2);
-            Command command = Command.valueOf(input[0].toUpperCase());
+            Command command;
+            try {
+                command = Command.valueOf(input[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Sorry, I don't know the command " + input[0] + "!");
+                continue;
+            }
 
             switch(command) {
             case LIST:
                 list();
                 break;
             case MARK: {
-                if (input.length == 1) {
+                int index = -1;
+                try {
+                    index = Integer.parseInt(input[1]) - 1;
+                    mark(index);
+                } catch (NumberFormatException e) {
                     System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
-                    break;
-                }
-                int index = Integer.parseInt(input[1]) - 1;
-                if (index >= tasks.size() || index < 0) {
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                    break;
                 }
-                mark(index);
                 break;
             }
             case UNMARK: {
-                if (input.length == 1) {
-                    System.out.println("Invalid parameter(s). Usage: unmark [taskNumber]");
-                    break;
-                }
-
-                int index = Integer.parseInt(input[1]) - 1;
-                if (index >= tasks.size() || index < 0) {
+                int index = -1;
+                try {
+                    index = Integer.parseInt(input[1]) - 1;
+                    unmark(index);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                    break;
                 }
-
-                unmark(Integer.parseInt(input[1]) - 1);
                 break;
             }
             case TODO:
@@ -98,21 +117,16 @@ public class Duke {
                 break;
             }
             case DELETE: {
-                if (input.length == 1) {
-                    System.out.println("Invalid parameter(s). Usage: delete [taskNumber]");
-                    break;
-                }
-
-                int index = Integer.parseInt(input[1]) - 1;
-                if (index >= tasks.size() || index < 0) {
+                int index = -1;
+                try {
+                    index = Integer.parseInt(input[1]) - 1;
+                    tasks.remove(index);
+                    saveTasks();
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid parameter(s). Task " + (index + 1) + " does not exist");
-                    break;
                 }
-
-                Task deletedTask = tasks.remove(index);
-                System.out.println("Noted. I've removed this task:\n\t" +
-                        deletedTask +
-                        "\nNow you have " + tasks.size() + " tasks in the list.");
                 break;
             }
             case BYE:
@@ -125,15 +139,33 @@ public class Duke {
         }
     }
 
+    static void addTask(Task task) {
+        tasks.add(task);
+        saveTasks();
+    }
+
+    static void saveTasks() {
+        try {
+            String path  = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
+            FileOutputStream fos = new FileOutputStream(path);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(tasks);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
     static void mark(int index) {
         Task task = tasks.get(index);
         task.mark();
+        saveTasks();
         System.out.println("Nice! I've marked this task as done:\n\t" + task);
     }
 
     static void unmark(int index) {
         Task task = tasks.get(index);
         task.unmark();
+        saveTasks();
         System.out.println("Ok, I've marked this task as not done yet:\n\t" + task);
     }
 
@@ -147,7 +179,7 @@ public class Duke {
 
     static void addTodo(String description) {
         Todo todo = new Todo(description);
-        tasks.add(todo);
+        addTask(todo);
         System.out.println("Got it. I've added this task:\n\t"
                 + todo
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
@@ -155,7 +187,7 @@ public class Duke {
 
     static void addDeadline(String description, String dueDateTime) {
         Deadline deadline = new Deadline(description, dueDateTime);
-        tasks.add(deadline);
+        addTask(deadline);
         System.out.println("Got it. I've added this task:\n\t"
                 + deadline
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
@@ -163,7 +195,7 @@ public class Duke {
 
     static void addEvent(String description, String time) {
         Event event = new Event(description, time);
-        tasks.add(event);
+        addTask(event);
         System.out.println("Got it. I've added this task:\n\t"
                 + event
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
