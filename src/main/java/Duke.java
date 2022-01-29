@@ -17,27 +17,24 @@ enum Command {
 }
 
 public class Duke {
-    static final String PROJECT_ROOT = System.getProperty("user.dir");
-    static ArrayList<Task> tasks;
 
-    static void loadTasks() {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage();
         try {
-            String path = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            tasks = (ArrayList<Task>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            String path = Path.of(PROJECT_ROOT, "data").toString();
-            File file = new File(path);
-            file.mkdir();
-            tasks = new ArrayList<>();
+            tasks = new TaskList(storage.load());
+        } catch (Exception e) {
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         greet();
-
-        loadTasks();
 
         Scanner sc = new Scanner(System.in);
 
@@ -129,8 +126,10 @@ public class Duke {
                 int index = -1;
                 try {
                     index = Integer.parseInt(input[1]) - 1;
-                    tasks.remove(index);
-                    saveTasks();
+                    Task task = tasks.remove(index);
+                    System.out.println("Deleted task:\n" +
+                            task +
+                            "\nNow you have " + tasks.count() + " tasks in the list.");
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid parameter(s). Usage: mark [taskNumber]");
                 } catch (IndexOutOfBoundsException e) {
@@ -148,72 +147,58 @@ public class Duke {
         }
     }
 
-    static void addTask(Task task) {
-        tasks.add(task);
-        saveTasks();
-    }
-
-    static void saveTasks() {
-        try {
-            String path  = Path.of(PROJECT_ROOT, "data", "duke.txt").toString();
-            FileOutputStream fos = new FileOutputStream(path);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(tasks);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
-    static void mark(int index) {
-        Task task = tasks.get(index);
-        task.mark();
-        saveTasks();
+    private void mark(int index) {
+        Task task = tasks.mark(index);
+        storage.save(tasks);
         System.out.println("Nice! I've marked this task as done:\n\t" + task);
     }
 
-    static void unmark(int index) {
-        Task task = tasks.get(index);
-        task.unmark();
-        saveTasks();
+    private void unmark(int index) {
+        Task task = tasks.unmark(index);
         System.out.println("Ok, I've marked this task as not done yet:\n\t" + task);
     }
 
-    static void greet() {
+    private void greet() {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
     }
 
-    static void sayBye() {
+    private void sayBye() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    static void addTodo(String description) {
+    private void addTodo(String description) {
         Todo todo = new Todo(description);
-        addTask(todo);
+        tasks.add(todo);
+        storage.save(tasks);
         System.out.println("Got it. I've added this task:\n\t"
                 + todo
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.count() + " tasks in the list.");
     }
 
-    static void addDeadline(String description, LocalDate dueDateTime) {
+    private void addDeadline(String description, LocalDate dueDateTime) {
         Deadline deadline = new Deadline(description, dueDateTime);
-        addTask(deadline);
+        tasks.add(deadline);
+        storage.save(tasks);
         System.out.println("Got it. I've added this task:\n\t"
                 + deadline
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.count() + " tasks in the list.");
     }
 
-    static void addEvent(String description, String time) {
+    private void addEvent(String description, String time) {
         Event event = new Event(description, time);
-        addTask(event);
+        tasks.add(event);
+        storage.save(tasks);
         System.out.println("Got it. I've added this task:\n\t"
                 + event
-                + "\nNow you have " + tasks.size() + " tasks in the list.");
+                + "\nNow you have " + tasks.count() + " tasks in the list.");
     }
 
-    static void list() {
-        System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
-        }
+    private void list() {
+        System.out.println("Here are the tasks in your list:\n" + tasks);
+
+    }
+
+    public static void main(String[] args) {
+        new Duke().run();
     }
 }
