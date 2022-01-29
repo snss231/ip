@@ -84,6 +84,13 @@ public class Parser {
                 throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
             }
         }
+        case FindCommand.COMMAND_WORD:
+            try {
+                String keyword = input[1];
+                return new FindCommand(keyword);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Invalid parameters. Usage: find [keyword]");
+            }
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
         default:

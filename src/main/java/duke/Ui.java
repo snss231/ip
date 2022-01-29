@@ -1,6 +1,8 @@
 package duke;
 
 import duke.task.Task;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -105,5 +107,12 @@ public class Ui {
      */
     public void showUnmarkTask(Task task) {
         System.out.println("Ok bro, unmarked this task:\n" + task);
+    }
+
+    public void showFindTasks(TaskList results, String keyword) {
+        System.out.println(
+                results.isEmpty()
+                        ? "There are no tasks with the keyword \"" + keyword + "\" bro."
+                        : "Here are the matching tasks in your list:\n" + results);
     }
 }

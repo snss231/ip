@@ -36,6 +36,10 @@ public abstract class Task implements Serializable {
         return isDone ? "X" : " ";
     }
 
+    public boolean descriptionContains(String keyword) {
+        return this.description.contains(keyword);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", this.getStatusIcon(), this.description);
