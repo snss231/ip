@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.nio.file.Path;
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
 
 enum Command {
     LIST,
@@ -97,7 +99,14 @@ public class Duke {
                     break;
                 }
                 String description = parsedDeadline[0];
-                String deadline = parsedDeadline[1];
+                LocalDate deadline;
+                try {
+                    deadline = LocalDate.parse(parsedDeadline[1]);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Sorry, I don't understand the date: \"" + parsedDeadline[1] + "\". " +
+                            "Enter your date in the format yyyy-mm-dd.");
+                    continue;
+                }
                 addDeadline(description, deadline);
                 break;
             }
@@ -185,7 +194,7 @@ public class Duke {
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
-    static void addDeadline(String description, String dueDateTime) {
+    static void addDeadline(String description, LocalDate dueDateTime) {
         Deadline deadline = new Deadline(description, dueDateTime);
         addTask(deadline);
         System.out.println("Got it. I've added this task:\n\t"
