@@ -1,4 +1,9 @@
-import java.time.LocalDate;
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Event;
 
 public class EventCommand extends Command {
 
@@ -17,6 +22,6 @@ public class EventCommand extends Command {
         Event event = new Event(description, at);
         tasks.add(event);
         storage.save(tasks);
-        ui.addTaskMessage(event, tasks.count());
+        ui.showAddTask(event, tasks.count());
     }
 }

@@ -1,3 +1,11 @@
+package duke.command;
+
+import duke.DukeException;
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Task;
+
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";
@@ -12,9 +20,9 @@ public class MarkCommand extends Command {
         try {
             Task task = tasks.mark(index);
             storage.save(tasks);
-            ui.print("Ok bro, marked this task:\n" + task);
+            ui.showMarkTask(task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Task " + (index + 1) + " does not exist.");
+            throw new DukeException("Task " + (index + 1) + " does not exist bro.");
         }
     }
 }

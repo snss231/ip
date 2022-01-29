@@ -1,9 +1,6 @@
-import java.io.*;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.nio.file.Path;
-import java.time.format.DateTimeParseException;
-import java.time.LocalDate;
+package duke;
+
+import duke.command.Command;
 
 public class Duke {
 

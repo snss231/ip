@@ -1,3 +1,10 @@
+package duke.command;
+
+import duke.Storage;
+import duke.TaskList;
+import duke.Ui;
+import duke.task.Todo;
+
 public class TodoCommand extends Command {
 
     private String description;
@@ -12,6 +19,6 @@ public class TodoCommand extends Command {
         Todo todo = new Todo(description);
         tasks.add(todo);
         storage.save(tasks);
-        ui.addTaskMessage(todo, tasks.count());
+        ui.showAddTask(todo, tasks.count());
     }
 }

@@ -1,3 +1,7 @@
+package duke;
+
+import duke.command.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -18,7 +22,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
             }
         }
         case UnmarkCommand.COMMAND_WORD: {
@@ -29,7 +33,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
             }
         }
         case TodoCommand.COMMAND_WORD:
@@ -67,7 +71,7 @@ public class Parser {
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: delete [taskNumber]");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
             }
         }
         case ByeCommand.COMMAND_WORD:

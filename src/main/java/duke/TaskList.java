@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +57,9 @@ public class TaskList implements Serializable {
         Task task = tasks.get(index);
         tasks.remove(index);
         return task;
+    }
+
+    public boolean isEmpty() {
+        return this.tasks.size() == 0;
     }
 }
