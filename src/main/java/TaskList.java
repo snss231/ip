@@ -48,4 +48,10 @@ public class TaskList implements Serializable {
                 .collect(Collectors.toList());
         return String.join("\n", taskStrings);
     }
+
+    public Task deleteTask(int index) {
+        Task task = tasks.get(index);
+        tasks.remove(index);
+        return task;
+    }
 }
