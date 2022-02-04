@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Scanner;
-
 import duke.task.Task;
 
 /**
@@ -9,36 +7,18 @@ import duke.task.Task;
  */
 public class Ui {
 
-    private Scanner sc;
-
-    /**
-     * Creates a new Ui.
-     */
-    public Ui() {
-        this.sc = new Scanner(System.in);
-    }
-
-    /**
-     * Reads a line from standard input.
-     *
-     * @return The user's input.
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
     /**
      * Prints a welcome message to the user.
      */
-    public void greet() {
-        System.out.println("Hello bro.\nWhat can I do for you bro?");
+    public static String greet() {
+        return "Hello bro.\nWhat can I do for you bro?";
     }
 
     /**
      * Informs the user that there was an error with loading the list of tasks at {PROJECT_ROOT}/data/duke.txt
      */
-    public void showLoadingError() {
-        System.out.println("Something went wrong while loading data/duke.txt bro.");
+    public static String showLoadingError() {
+        return "Something went wrong while loading data/duke.txt bro.";
     }
 
     /**
@@ -46,8 +26,8 @@ public class Ui {
      *
      * @param message The error message to be printed.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public static String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
@@ -56,10 +36,10 @@ public class Ui {
      * @param task The task added.
      * @param count The total number of tasks in the list.
      */
-    public void showAddTask(Task task, int count) {
-        System.out.println("Got it bro. I've added this task:\n\t"
+    public static String showAddTask(Task task, int count) {
+        return "Got it bro. I've added this task:\n\t"
                + task
-               + "\nNow you have " + count + " tasks in the list.");
+               + "\nNow you have " + count + " tasks in the list.";
     }
 
     /**
@@ -67,15 +47,15 @@ public class Ui {
      *
      * @param task The task deleted.
      */
-    public void showDeleteTask(Task task) {
-        System.out.println("Deleted this task:\n" + task);
+    public static String showDeleteTask(Task task) {
+        return "Deleted this task:\n" + task;
     }
 
     /**
      * Prints a goodbye message to the user.
      */
-    public void sayBye() {
-        System.out.println("Bye bro, see you again soon.");
+    public static String sayBye() {
+        return "Bye bro, see you again soon.";
     }
 
     /**
@@ -83,11 +63,10 @@ public class Ui {
      *
      * @param tasks The list of tasks.
      */
-    public void showTasks(TaskList tasks) {
-        System.out.println(
-                tasks.isEmpty()
+    public static String showTasks(TaskList tasks) {
+        return tasks.isEmpty()
                 ? "There are no tasks yet, bro."
-                : "Here are your tasks bro:\n" + tasks);
+                : "Here are your tasks bro:\n" + tasks;
     }
 
     /**
@@ -95,8 +74,8 @@ public class Ui {
      *
      * @param task The marked task.
      */
-    public void showMarkTask(Task task) {
-        System.out.println("Ok bro, marked this task:\n" + task);
+    public static String showMarkTask(Task task) {
+        return "Ok bro, marked this task:\n" + task;
     }
 
     /**
@@ -104,8 +83,8 @@ public class Ui {
      *
      * @param task The unmarked task.
      */
-    public void showUnmarkTask(Task task) {
-        System.out.println("Ok bro, unmarked this task:\n" + task);
+    public static String showUnmarkTask(Task task) {
+        return "Ok bro, unmarked this task:\n" + task;
     }
 
     /**
@@ -114,10 +93,9 @@ public class Ui {
      * @param results The filtered tasks.
      * @param keyword The search filter.
      */
-    public void showFindTasks(TaskList results, String keyword) {
-        System.out.println(
-                results.isEmpty()
-                        ? "There are no tasks with the keyword \"" + keyword + "\" bro."
-                        : "Here are the matching tasks in your list:\n" + results);
+    public static String showFindTasks(TaskList results, String keyword) {
+        return results.isEmpty()
+                ? "There are no tasks with the keyword \"" + keyword + "\" bro."
+                : "Here are the matching tasks in your list:\n" + results;
     }
 }

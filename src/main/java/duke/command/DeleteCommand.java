@@ -28,17 +28,16 @@ public class DeleteCommand extends Command {
      * user upon successful completion.
      *
      * @param tasks List of user's tasks.
-     * @param ui Handles interactions with the user.
      * @param storage Handles storage of tasks in the user's memory.
      *
      * @throws DukeException On invalid task index.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             Task task = tasks.deleteTask(index);
             storage.save(tasks);
-            ui.showDeleteTask(task);
+            return Ui.showDeleteTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task " + (index + 1) + " does not exist bro.");
         }

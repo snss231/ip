@@ -28,15 +28,14 @@ public class UnmarkCommand extends Command {
      * successful completion.
      *
      * @param tasks List of user's tasks.
-     * @param ui Handles interactions with the user.
      * @param storage Handles storage of tasks in the user's memory.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             Task task = tasks.unmark(index);
             storage.save(tasks);
-            ui.showUnmarkTask(task);
+            return Ui.showUnmarkTask(task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Task " + (index + 1) + " does not exist bro.");
         }

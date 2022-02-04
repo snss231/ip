@@ -30,15 +30,14 @@ public class EventCommand extends Command {
      * user upon successful completion.
      *
      * @param tasks List of user's tasks.
-     * @param ui Handles interactions with the user.
      * @param storage Handles storage of tasks in the user's memory.
      */
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Event event = new Event(description, at);
         tasks.addTask(event);
         storage.save(tasks);
-        ui.showAddTask(event, tasks.count());
+        return Ui.showAddTask(event, tasks.count());
     }
 }

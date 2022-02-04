@@ -27,14 +27,13 @@ public class TodoCommand extends Command {
      * completion.
      *
      * @param tasks List of user's tasks.
-     * @param ui Handles interactions with the user.
      * @param storage Handles storage of tasks in the user's memory.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) {
         Todo todo = new Todo(description);
         tasks.addTask(todo);
         storage.save(tasks);
-        ui.showAddTask(todo, tasks.count());
+        return Ui.showAddTask(todo, tasks.count());
     }
 }
