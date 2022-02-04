@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 public class Storage {
 
-    static final String PROJECT_ROOT = System.getProperty("user.dir");
+    private static final String PROJECT_ROOT = System.getProperty("user.dir");
 
     public void save(TaskList tasks) {
         try {

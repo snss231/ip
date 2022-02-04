@@ -8,8 +8,8 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     public static Command parse(String fullCommand) throws DukeException {
-        String[] input = fullCommand.split(" ", 2); //return [commandWord, restOfCommand]
-        String commandWord = input[0];
+        String[] inputs = fullCommand.split(" ", 2); //return [commandWord, restOfCommand]
+        String commandWord = inputs[0];
 
         switch(commandWord) {
         case ListCommand.COMMAND_WORD:
@@ -17,7 +17,7 @@ public class Parser {
         case MarkCommand.COMMAND_WORD: {
             int index = -1;
             try {
-                index = Integer.valueOf(input[1]) - 1;
+                index = Integer.valueOf(inputs[1]) - 1;
                 return new MarkCommand(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
@@ -28,7 +28,7 @@ public class Parser {
         case UnmarkCommand.COMMAND_WORD: {
             int index = -1;
             try {
-                index = Integer.valueOf(input[1]) - 1;
+                index = Integer.valueOf(inputs[1]) - 1;
                 return new UnmarkCommand(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
@@ -38,14 +38,14 @@ public class Parser {
         }
         case TodoCommand.COMMAND_WORD:
             try {
-                String description = input[1];
+                String description = inputs[1];
                 return new TodoCommand(description);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid parameter(s). Usage: todo [description]");
             }
         case DeadlineCommand.COMMAND_WORD:
             try {
-                String[] args = input[1].split(" /by ", 2);
+                String[] args = inputs[1].split(" /by ", 2);
                 String description = args[0];
                 LocalDate deadline = LocalDate.parse(args[1]);
                 return new DeadlineCommand(description, deadline);
@@ -56,7 +56,7 @@ public class Parser {
             }
         case EventCommand.COMMAND_WORD:
             try {
-                String[] args = input[1].split(" /at ", 2);
+                String[] args = inputs[1].split(" /at ", 2);
                 String description = args[0];
                 String at = args[1];
                 return new EventCommand(description, at);
@@ -66,7 +66,7 @@ public class Parser {
         case DeleteCommand.COMMAND_WORD: {
             int index = -1;
             try {
-                index = Integer.parseInt(input[1]) - 1;
+                index = Integer.parseInt(inputs[1]) - 1;
                 return new DeleteCommand(index);
             } catch (NumberFormatException e) {
                 throw new DukeException("Invalid parameter(s). Usage: delete [taskNumber]");
@@ -76,7 +76,7 @@ public class Parser {
         }
         case FindCommand.COMMAND_WORD:
             try {
-                String keyword = input[1];
+                String keyword = inputs[1];
                 return new FindCommand(keyword);
             } catch (IndexOutOfBoundsException e) {
                 throw new DukeException("Invalid parameters. Usage: find [keyword]");
