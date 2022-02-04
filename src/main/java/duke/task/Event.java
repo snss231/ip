@@ -4,7 +4,7 @@ package duke.task;
  * Represents an event with a description and a time.
  */
 public class Event extends Task {
-    
+
     protected String at;
 
     /**

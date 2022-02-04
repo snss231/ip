@@ -10,10 +10,9 @@ import duke.task.Event;
  */
 public class EventCommand extends Command {
 
+    public static final String COMMAND_WORD = "event";
     private String description;
     private String at;
-
-    public static final String COMMAND_WORD = "event";
 
     /**
      * Creates a new EventCommand.

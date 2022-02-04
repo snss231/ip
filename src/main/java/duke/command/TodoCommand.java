@@ -10,8 +10,8 @@ import duke.task.Todo;
  */
 public class TodoCommand extends Command {
 
-    private String description;
     public static final String COMMAND_WORD = "todo";
+    private String description;
 
     /**
      * Creates a new TodoCommand.

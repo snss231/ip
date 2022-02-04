@@ -1,13 +1,12 @@
 package duke;
 
-import duke.task.Task;
-
 import java.io.Serializable;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import duke.task.Task;
 
 /**
  * Represents the list of user's tasks.
@@ -86,21 +85,27 @@ public class TaskList implements Serializable {
         return this.tasks.size();
     }
 
+    public boolean isEmpty() {
+        return this.tasks.size() == 0;
+    }
+
+    /**
+     * Returns a TaskList containing tasks where description contains keyword.
+     *
+     * @param keyword the keyword to search for
+     * @return filtered TaskList
+     */
+    public TaskList findTasks(String keyword) {
+        TaskList tl = new TaskList(this);
+        tl.tasks.removeIf(task -> !task.descriptionContains(keyword));
+        return tl;
+    }
+
     @Override
     public String toString() {
         List<String> taskStrings = IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
                 .collect(Collectors.toList());
         return String.join("\n", taskStrings);
-    }
-
-    public boolean isEmpty() {
-        return this.tasks.size() == 0;
-    }
-
-    public TaskList findTasks(String keyword) {
-        TaskList tl = new TaskList(this);
-        tl.tasks.removeIf(task -> !task.descriptionContains(keyword));
-        return tl;
     }
 }

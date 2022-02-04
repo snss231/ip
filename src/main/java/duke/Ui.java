@@ -1,9 +1,8 @@
 package duke;
 
-import duke.task.Task;
-
-import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.task.Task;
 
 /**
  * Responsible for reading user input and to print messages on the command line.
@@ -58,9 +57,9 @@ public class Ui {
      * @param count The total number of tasks in the list.
      */
     public void showAddTask(Task task, int count) {
-       System.out.println("Got it bro. I've added this task:\n\t"
-                + task
-                + "\nNow you have " + count + " tasks in the list.");
+        System.out.println("Got it bro. I've added this task:\n\t"
+               + task
+               + "\nNow you have " + count + " tasks in the list.");
     }
 
     /**
@@ -109,6 +108,12 @@ public class Ui {
         System.out.println("Ok bro, unmarked this task:\n" + task);
     }
 
+    /**
+     * Returns the user the tasks matching the search keyword.
+     *
+     * @param results The filtered tasks.
+     * @param keyword The search filter.
+     */
     public void showFindTasks(TaskList results, String keyword) {
         System.out.println(
                 results.isEmpty()
