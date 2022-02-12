@@ -34,6 +34,8 @@ public class Duke {
             System.out.println(Ui.showLoadingError());
             tasks = new TaskList();
         }
+        assert storage != null;
+        assert tasks != null;
     }
 
     protected String getResponse(String input) {
