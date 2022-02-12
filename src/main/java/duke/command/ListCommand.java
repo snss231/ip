@@ -19,6 +19,6 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        return Ui.showTasks(tasks);
+        return tasks.isEmpty() ? Ui.showNoTasks() : Ui.showTasks(tasks);
     }
 }
