@@ -64,9 +64,14 @@ public class Ui {
      * @param tasks The list of tasks.
      */
     public static String showTasks(TaskList tasks) {
-        return tasks.isEmpty()
-                ? "There are no tasks yet, bro."
-                : "Here are your tasks bro:\n" + tasks;
+        return "Here are your tasks bro:\n" + tasks;
+    }
+
+    /**
+     * Informs the user that there are no tasks.
+     */
+    public static String showNoTasks() {
+        return "There are no tasks yet, bro.";
     }
 
     /**
@@ -91,11 +96,17 @@ public class Ui {
      * Returns the user the tasks matching the search keyword.
      *
      * @param results The filtered tasks.
-     * @param keyword The search filter.
      */
-    public static String showFindTasks(TaskList results, String keyword) {
-        return results.isEmpty()
-                ? "There are no tasks with the keyword \"" + keyword + "\" bro."
-                : "Here are the matching tasks in your list:\n" + results;
+    public static String showFindTasks(TaskList results) {
+        return "Here are the matching tasks in your list:\n" + results;
+    }
+
+    /**
+     * Returns a string informing the user that there are no tasks found.
+     *
+     * @param searchTerm The search term.
+     */
+    public static String showFindNoTasks(String searchTerm) {
+        return "There are no tasks with the search term \"" + searchTerm + "\" bro.";
     }
 }
