@@ -9,6 +9,7 @@ import duke.command.DeadlineCommand;
 import duke.command.DeleteCommand;
 import duke.command.EventCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
@@ -39,9 +40,9 @@ public class Parser {
                 index = Integer.valueOf(inputs[1]) - 1;
                 return new MarkCommand(index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.MARK_USAGE);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
             }
         }
         case UnmarkCommand.COMMAND_WORD: {
@@ -50,9 +51,9 @@ public class Parser {
                 index = Integer.valueOf(inputs[1]) - 1;
                 return new UnmarkCommand(index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Invalid parameter(s). Usage: mark [taskNumber]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.UNMARK_USAGE);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
             }
         }
         case TodoCommand.COMMAND_WORD:
@@ -60,7 +61,7 @@ public class Parser {
                 String description = inputs[1];
                 return new TodoCommand(description);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Usage: todo [description]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.TODO_USAGE);
             }
         case DeadlineCommand.COMMAND_WORD:
             try {
@@ -71,7 +72,7 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 throw new DukeException("Please specify your date in the format \"yyyy-mm-dd\"");
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Usage: deadline [description] /by [time]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.DEADLINE_USAGE);
             }
         case EventCommand.COMMAND_WORD:
             try {
@@ -80,7 +81,7 @@ public class Parser {
                 String at = args[1];
                 return new EventCommand(description, at);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). Usage: event [description] /at [time]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.EVENT_USAGE);
             }
         case DeleteCommand.COMMAND_WORD: {
             int index = -1;
@@ -88,9 +89,9 @@ public class Parser {
                 index = Integer.parseInt(inputs[1]) - 1;
                 return new DeleteCommand(index);
             } catch (NumberFormatException e) {
-                throw new DukeException("Invalid parameter(s). Usage: delete [taskNumber]");
+                throw new DukeException("Invalid parameter(s). Usage: " + Ui.DELETE_USAGE);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameter(s). duke.task.Task " + (index + 1) + " does not exist");
+                throw new DukeException("Invalid parameter(s). Task " + (index + 1) + " does not exist");
             }
         }
         case FindCommand.COMMAND_WORD:
@@ -98,12 +99,14 @@ public class Parser {
                 String keyword = inputs[1];
                 return new FindCommand(keyword);
             } catch (IndexOutOfBoundsException e) {
-                throw new DukeException("Invalid parameters. Usage: find [keyword]");
+                throw new DukeException("Invalid parameters. Usage: " + Ui.FIND_USAGE);
             }
         case ByeCommand.COMMAND_WORD:
             return new ByeCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         default:
-            throw new DukeException("Unknown command");
+            throw new DukeException("Not sure what you're saying bro, try \"help\" to display all commands");
         }
     }
 }

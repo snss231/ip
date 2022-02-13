@@ -7,6 +7,28 @@ import duke.task.Task;
  */
 public class Ui {
 
+    //todo: Put these strings in another class?
+    public static final String BYE_USAGE = "bye";
+    public static final String DEADLINE_USAGE = "deadline [description] /by [yyyy-mm-dd]";
+    public static final String DELETE_USAGE = "delete [taskNumber]";
+    public static final String EVENT_USAGE = "event [description] /at [time]";
+    public static final String FIND_USAGE = "find [keyword]";
+    public static final String LIST_USAGE = "list";
+    public static final String MARK_USAGE = "mark [taskNumber]";
+    public static final String TODO_USAGE = "todo [description]";
+    public static final String UNMARK_USAGE = "unmark [taskNumber]";
+
+
+    public static final String BYE_DESCRIPTION = "Exit the program.";
+    public static final String DEADLINE_DESCRIPTION = "Create a new task with a deadline.";
+    public static final String DELETE_DESCRIPTION = "Delete the task corresponding to taskNumber";
+    public static final String EVENT_DESCRIPTION = "Create a new event with a start and/or end time.";
+    public static final String FIND_DESCRIPTION = "Search your list for tasks that match the filter.";
+    public static final String LIST_DESCRIPTION = "List all tasks.";
+    public static final String MARK_DESCRIPTION = "Mark the task corresponding to taskNumber.";
+    public static final String TODO_DESCRIPTION = "Create a new task.";
+    public static final String UNMARK_DESCRIPTION = "Unmark the task corresponding to taskNumber.";
+
     /**
      * Prints a welcome message to the user.
      */
@@ -108,5 +130,18 @@ public class Ui {
      */
     public static String showFindNoTasks(String searchTerm) {
         return "There are no tasks with the search term \"" + searchTerm + "\" bro.";
+    }
+
+    public static String showHelpPage() {
+        return "List of commands:\n" +
+                String.format("%s: %s\n", BYE_USAGE, BYE_DESCRIPTION) +
+                String.format("%s: %s\n", DEADLINE_USAGE, DEADLINE_DESCRIPTION) +
+                String.format("%s: %s\n", DELETE_USAGE, DELETE_DESCRIPTION) +
+                String.format("%s: %s\n", EVENT_USAGE, EVENT_DESCRIPTION) +
+                String.format("%s: %s\n", FIND_USAGE, FIND_DESCRIPTION) +
+                String.format("%s: %s\n", LIST_USAGE, LIST_DESCRIPTION) +
+                String.format("%s: %s\n", MARK_USAGE, MARK_DESCRIPTION) +
+                String.format("%s: %s\n", TODO_USAGE, TODO_DESCRIPTION) +
+                String.format("%s: %s\n", UNMARK_USAGE, UNMARK_DESCRIPTION);
     }
 }
