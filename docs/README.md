@@ -1,5 +1,5 @@
 # User Guide
-ßß
+
 ## Usage
 
 ### `help` - Describe action
