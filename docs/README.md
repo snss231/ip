@@ -10,6 +10,10 @@ Create, delete, and mark your todos/deadlines/events.
 
 Just use the find command with a search phrase.
 
+### Maintain your list of tasks in storage between sessions.
+
+Save data will be saved at {duke_directory}/data/duke.txt
+
 ## Usage
 
 All commands are text-based and should be typed into the input field. Here are some example commands:
