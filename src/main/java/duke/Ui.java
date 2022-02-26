@@ -132,16 +132,20 @@ public class Ui {
         return "There are no tasks with the search term \"" + searchTerm + "\" bro.";
     }
 
+    /**
+     * Returns a string stating all the commands
+     *
+     */
     public static String showHelpPage() {
-        return "List of commands:\n" +
-                String.format("%s: %s\n", BYE_USAGE, BYE_DESCRIPTION) +
-                String.format("%s: %s\n", DEADLINE_USAGE, DEADLINE_DESCRIPTION) +
-                String.format("%s: %s\n", DELETE_USAGE, DELETE_DESCRIPTION) +
-                String.format("%s: %s\n", EVENT_USAGE, EVENT_DESCRIPTION) +
-                String.format("%s: %s\n", FIND_USAGE, FIND_DESCRIPTION) +
-                String.format("%s: %s\n", LIST_USAGE, LIST_DESCRIPTION) +
-                String.format("%s: %s\n", MARK_USAGE, MARK_DESCRIPTION) +
-                String.format("%s: %s\n", TODO_USAGE, TODO_DESCRIPTION) +
-                String.format("%s: %s\n", UNMARK_USAGE, UNMARK_DESCRIPTION);
+        return "List of commands:\n"
+                + String.format("%s: %s\n", BYE_USAGE, BYE_DESCRIPTION)
+                + String.format("%s: %s\n", DEADLINE_USAGE, DEADLINE_DESCRIPTION)
+                + String.format("%s: %s\n", DELETE_USAGE, DELETE_DESCRIPTION)
+                + String.format("%s: %s\n", EVENT_USAGE, EVENT_DESCRIPTION)
+                + String.format("%s: %s\n", FIND_USAGE, FIND_DESCRIPTION)
+                + String.format("%s: %s\n", LIST_USAGE, LIST_DESCRIPTION)
+                + String.format("%s: %s\n", MARK_USAGE, MARK_DESCRIPTION)
+                + String.format("%s: %s\n", TODO_USAGE, TODO_DESCRIPTION)
+                + String.format("%s: %s\n", UNMARK_USAGE, UNMARK_DESCRIPTION);
     }
 }
